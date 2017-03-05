@@ -11,12 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class ptime implements CommandExecutor {
+public class lurkerCmd implements CommandExecutor {
 
 	public static JavaPlugin plugin;
 	
 	// Setup ptime constructor
-	public ptime() {
+	public lurkerCmd() {
 		plugin = connectionTracker.plugin;
 	}
 
@@ -24,10 +24,14 @@ public class ptime implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
 		// Send to player or console
+		System.out.print("In command sender...");
 		if ( sender instanceof Player && sender.hasPermission("lurker.cmd") ) {
+			System.out.print("Instance of player.");
 			// Assume player casting command
 			// Check if casting on self or other
-			if ( args == null ) {
+			System.out.print("Tag is: "+ tag);
+			if ( args.length == 0 ) {
+				System.out.print("Arguments null");
 				// Casting on self
 				Player ps = (Player) sender;
 				if ( connectionTracker.lurkers.get(ps.getUniqueId()) != null ) {
@@ -84,14 +88,15 @@ public class ptime implements CommandExecutor {
 			// Return command as TRUE
 			return true;
 		}
-		
 		// Return command as FALSE
-		return false;
+		return true;
 	}
 	
 	// Return formated time in array from hour to second
 	public static int[] formatTime(int time) {
+		System.out.print("Time: "+ time);
 		int[] at = {(int)((time / (1000*60*60)) % 24), (int)((time / (1000*60)) % 60), (int)(time / 1000) % 60};
+		System.out.print("Time Array: "+ at.toString());
 		return at;
 	}
 	

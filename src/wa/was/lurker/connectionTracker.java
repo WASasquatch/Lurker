@@ -1,5 +1,7 @@
 package wa.was.lurker;
 
+import wa.was.lurker.commands.lurkerCmd;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
@@ -28,19 +30,23 @@ public class connectionTracker extends JavaPlugin implements Listener {
 	// When the plugin is enabled
     @Override
     public void onEnable() {
-    	System.out.print("[connectionTracker] Tracking connected users play time...");
     	// Create the configuration file
     	createConfig();
     	// Get configuration
     	config = getConfig();
+    	// Register Listeners
+    	server.getPluginManager().registerEvents(new connectionTracker(), plugin);
+    	// Register Command
+    	this.getCommand("lurker").setExecutor(new lurkerCmd());
     	// Set Startup Time
     	config.set("startup-time", (int) 0);
+    	System.out.print("[Lurker] Tracking connected users play time...");
     }
     
     // When the plugin is disabled
     @Override
     public void onDisable() {
-    	System.out.print("[connectionTracker] Disabling user tracking...");
+    	System.out.print("[Lurker] Disabling user tracking...");
     	lurkers.clear();
     }
 	
@@ -64,10 +70,10 @@ public class connectionTracker extends JavaPlugin implements Listener {
             }
             File file = new File(getDataFolder(), "config.yml");
             if (!file.exists()) {
-                getLogger().info("[Lurker] Config.yml not found, creating it for you!");
+                getLogger().info("Config.yml not found, creating it for you!");
                 saveDefaultConfig();
             } else {
-                getLogger().info("[Lurker] Config.yml found, loading!");
+                getLogger().info("Config.yml found, loading!");
             }
         } catch (Exception e) {
             e.printStackTrace();

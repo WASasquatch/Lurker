@@ -1,10 +1,10 @@
 name: Lurker
-main: wa.was.Lurker.connectionTracker
+main: wa.was.lurker.connectionTracker
 version: 0.1
 commands:
-  ptime:
+  lurker:
     description: Get your current player time, or the player time of others. In the case of console, get uptime.
-    usage: /ptime (username)
+    usage: /lurker (username)
 permissions:
     lurker.cmd:
         description: Allows use of /ptime command
