@@ -1,0 +1,22 @@
+# LURKER CONFIGURATION
+
+# TAGS:
+# {USERNAME} - Players display name
+# {HOURS} - Hours Online
+# {MINUTES} - Minutes Online
+# {SECONDS} - Seconds Onlines
+
+# User Offline - use {USERNAME} to display target display name
+target-offline-format: "&4The player {USERNAME} is not online!&r"
+
+# Player Time Format
+player-time-format: "&6&l{USERNAME} &r&2has been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, &3&l{SECONDS}&r&2 seconds."
+
+# Self Time Format
+self-time-format: "&2You have been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, and &3&l{SECONDS}&r&2 seconds.&r"
+
+# Server Time Format
+server-time-format: "Server has been online for: {HOURS}:{MINUTES}:{SECONDS}"
+
+# Startup Time - Used by plugin to determine uptime
+startup-time: 0
