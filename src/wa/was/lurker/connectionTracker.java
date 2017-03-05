@@ -1,6 +1,7 @@
 package wa.was.lurker;
 
 import wa.was.lurker.commands.lurkerCmd;
+import wa.was.lurker.events.onJoinOrExit;
 
 import java.io.File;
 import java.util.HashMap;
@@ -8,17 +9,13 @@ import java.util.UUID;
 
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class connectionTracker extends JavaPlugin implements Listener {
+public class connectionTracker extends JavaPlugin {
 	
 	public static JavaPlugin plugin;
 	public static Server server;
-	public static HashMap<UUID, Integer> lurkers;
+	public static HashMap<UUID, Integer> lurkers = new HashMap<UUID, Integer>();
 	public static FileConfiguration config;
 	
 	// Class constructor
@@ -35,7 +32,7 @@ public class connectionTracker extends JavaPlugin implements Listener {
     	// Get configuration
     	config = getConfig();
     	// Register Listeners
-    	server.getPluginManager().registerEvents(new connectionTracker(), plugin);
+    	server.getPluginManager().registerEvents(new onJoinOrExit(), plugin);
     	// Register Command
     	this.getCommand("lurker").setExecutor(new lurkerCmd());
     	// Set Startup Time
@@ -47,19 +44,16 @@ public class connectionTracker extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
     	System.out.print("[Lurker] Disabling user tracking...");
-    	lurkers.clear();
-    }
-	
-	// When a player joins, lets add them to the HashMap with the current timestamp
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-    	lurkers.put(event.getPlayer().getUniqueId(), (int) System.currentTimeMillis());
-    }
-    
-    // When a player leaves, let's remove them from the HashMap
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-    	lurkers.remove(event.getPlayer().getUniqueId());
+    	// Clear the tracking hashmap
+    	if ( lurkers != null ) {
+        	System.out.print("[Lurker] Clearing HashMap...");
+	    	lurkers.clear();
+	    	if ( lurkers == null ) {
+	    		System.out.print("[Lurker] HashMap cleared.");
+	    	} else {
+	    		System.out.print("[Lurker] Failed to clear HashMap!");
+	    	}
+    	}
     }
     
     // Generate configuration file

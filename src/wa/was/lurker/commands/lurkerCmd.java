@@ -18,20 +18,25 @@ public class lurkerCmd implements CommandExecutor {
 	// Setup ptime constructor
 	public lurkerCmd() {
 		plugin = connectionTracker.plugin;
+		System.out.print("lurkerCmd() started...");
 	}
 
 	// Execute Lurker Tracking Command
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
+		// Check for too many arguments
+		if ( args.length >= 2 ) {
+			// Invalid arguments
+			String msg = connectionTracker.config.getString("invalid-argument-format");
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+			// Return command as FALSE
+			return false;
+		}
 		// Send to player or console
-		System.out.print("In command sender...");
-		if ( sender instanceof Player && sender.hasPermission("lurker.cmd") ) {
-			System.out.print("Instance of player.");
+		if ( sender instanceof Player && ( sender.hasPermission("lurker.cmd") || sender.isOp() ) ) {
 			// Assume player casting command
 			// Check if casting on self or other
-			System.out.print("Tag is: "+ tag);
 			if ( args.length == 0 ) {
-				System.out.print("Arguments null");
 				// Casting on self
 				Player ps = (Player) sender;
 				if ( connectionTracker.lurkers.get(ps.getUniqueId()) != null ) {
@@ -47,10 +52,11 @@ public class lurkerCmd implements CommandExecutor {
 					// Return command as TRUE
 					return true;
 				}
-			} else if ( sender.hasPermission("lurker.cmd.others") ) {
+			// Checking others play time
+			} else if ( sender.hasPermission("lurker.cmd.others") || sender.isOp() ) {
 				Player p = connectionTracker.server.getPlayer(args[0]);
-				// Check if destination player is online and in hashmap
-				if ( p.isOnline() && connectionTracker.lurkers.get(p.getUniqueId()) != null ) {
+				// Check if valid player...
+				if ( p != null && p instanceof Player && connectionTracker.lurkers.containsKey(args[0]) ) {
 					// Get the login time of player
 					int to = ( (int) System.currentTimeMillis() - connectionTracker.lurkers.get(p.getUniqueId()) );
 					int[] ft = formatTime(to);
@@ -67,7 +73,7 @@ public class lurkerCmd implements CommandExecutor {
 				} else {
 					// Target is offline
 					String msg = connectionTracker.config.getString("target-offline-format")
-									.replace("{USERNAME}", p.getDisplayName());
+									.replace("{USERNAME}", args[0]);
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
 				}
 			} else {
@@ -94,9 +100,7 @@ public class lurkerCmd implements CommandExecutor {
 	
 	// Return formated time in array from hour to second
 	public static int[] formatTime(int time) {
-		System.out.print("Time: "+ time);
 		int[] at = {(int)((time / (1000*60*60)) % 24), (int)((time / (1000*60)) % 60), (int)(time / 1000) % 60};
-		System.out.print("Time Array: "+ at.toString());
 		return at;
 	}
 	
