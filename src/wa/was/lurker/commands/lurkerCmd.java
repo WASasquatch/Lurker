@@ -85,7 +85,7 @@ public class lurkerCmd implements CommandExecutor {
 			// Assume console casting command
 			int[] ft = formatTime(connectionTracker.config.getInt("startup-time-format"));
 			// Format Message
-			String msg = connectionTracker.config.getString("server-online")
+			String msg = connectionTracker.config.getString("server-time-format")
 							.replace("{HOURS}", Integer.toString(ft[0]))
 							.replace("{MINUTES}", Integer.toString(ft[1]))
 							.replace("{SECONDS}", Integer.toString(ft[2]));
