@@ -7,10 +7,10 @@
 # {SECONDS} - Seconds Onlines
 
 # User Offline - use {USERNAME} to display target display name
-target-offline-format: "&cThe player &4{USERNAME}&c is not online, or doesn't exist!&r"
+target-offline-format: "&cThe player &r&l{USERNAME}&c is not online, or doesn't exist!&r"
 
 # Player Time Format
-player-time-format: "&6&l{USERNAME} &r&2has been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, &3&l{SECONDS}&r&2 seconds."
+player-time-format: "&6&l{USERNAME} &r&2has been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, &3&l{SECONDS}&r&2 seconds.&r"
 
 # Self Time Format
 self-time-format: "&2You have been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, and &3&l{SECONDS}&r&2 seconds.&r"
@@ -19,7 +19,7 @@ self-time-format: "&2You have been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTE
 server-time-format: "Server has been online for: {HOURS}:{MINUTES}:{SECONDS}"
 
 # Invalid Argument Format
-invalid-argument-format: "&cToo many arguments!"
+invalid-argument-format: "&cToo many arguments! Cast only on yourself (no username) or on a username.&r"
 
 # Startup Time - Used by plugin to determine uptime
 startup-time: 0
