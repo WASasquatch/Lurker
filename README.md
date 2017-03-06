@@ -1,4 +1,4 @@
-# Lurker
+# Lurker for Spigot 1.11
 **Allow players to keep track of their online time, or moderators to keep track of a players online time**
 ***
 
