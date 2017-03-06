@@ -28,6 +28,8 @@
 
 	# TAGS:
 	# {USERNAME} - Players display name
+	# {WEEKS} - Weeks online
+	# {DAYS} - Days online
 	# {HOURS} - Hours Online
 	# {MINUTES} - Minutes Online
 	# {SECONDS} - Seconds Onlines
