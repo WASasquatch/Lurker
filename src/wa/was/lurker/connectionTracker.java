@@ -17,6 +17,7 @@ public class connectionTracker extends JavaPlugin {
 	public static Server server;
 	public static HashMap<UUID, Integer> lurkers = new HashMap<UUID, Integer>();
 	public static FileConfiguration config;
+	public static int startupTime;
 	
 	// Class constructor
 	public connectionTracker() {
@@ -36,7 +37,7 @@ public class connectionTracker extends JavaPlugin {
     	// Register Command
     	this.getCommand("lurker").setExecutor(new lurkerCmd());
     	// Set Startup Time
-    	config.set("startup-time", (int) 0);
+    	startupTime = (int) System.currentTimeMillis();
     	System.out.print("[Lurker] Tracking connected users play time...");
     }
     

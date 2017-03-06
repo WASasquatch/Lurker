@@ -9,17 +9,14 @@
 # User Offline - use {USERNAME} to display target display name
 target-offline-format: "&cThe player &r&l{USERNAME}&c is not online, or doesn't exist!&r"
 
-# Player Time Format
-player-time-format: "&6&l{USERNAME} &r&2has been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, &3&l{SECONDS}&r&2 seconds.&r"
+# Player Time Format - use {USERNAME} to display target display name
+player-time-format: "&6&l{USERNAME} &r&2Online Time: &3&l{DAYS}&r&2 days, &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, &3&l{SECONDS}&r&2 seconds.&r"
 
-# Self Time Format
-self-time-format: "&2You have been online for &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, and &3&l{SECONDS}&r&2 seconds.&r"
+# Self Time Format - No {USERNAME} tag
+self-time-format: "&2Online Time: &3&l{DAYS}&r&2 days, &3&l{HOURS}&r&2 hours, &3&l{MINUTES}&r&2 minutes, and &3&l{SECONDS}&r&2 seconds.&r"
 
-# Server Time Format
-server-time-format: "Server has been online for: {HOURS}:{MINUTES}:{SECONDS}"
+# Server Time Format - No {USERNAME} tag
+server-time-format: "Server has been online for: {WEEKS}:{DAYS}:{HOURS}:{MINUTES}:{SECONDS}"
 
-# Invalid Argument Format
+# Invalid Argument Format - No special tags
 invalid-argument-format: "&cToo many arguments! Cast only on yourself (no username) or on a username.&r"
-
-# Startup Time - Used by plugin to determine uptime
-startup-time: 0
