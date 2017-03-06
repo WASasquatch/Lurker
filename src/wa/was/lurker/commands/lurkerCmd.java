@@ -18,7 +18,6 @@ public class lurkerCmd implements CommandExecutor {
 	// Setup ptime constructor
 	public lurkerCmd() {
 		plugin = connectionTracker.plugin;
-		System.out.print("lurkerCmd() started...");
 	}
 
 	// Execute Lurker Tracking Command
