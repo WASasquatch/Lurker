@@ -9,3 +9,14 @@
 **Project Author(s):** WASasquatch (Jordan Thompson)
 
 
+### Commands
+
+ - /**lurker** *(username|server)*
+ 
+
+### Permissions
+
+ - lurker.**cmd**
+ - lurker.cmd.**others**
+ - lurker.cmd.**uptime**
+

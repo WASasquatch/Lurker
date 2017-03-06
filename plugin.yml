@@ -4,11 +4,14 @@ version: 0.1
 commands:
   lurker:
     description: Get your current player time, or the player time of others. In the case of console, get uptime.
-    usage: /lurker (username)
+    usage: /lurker (username|server)
 permissions:
     lurker.cmd:
         description: Allows use of /lurker (username)
         default: true
     lurker.cmd.others:
         description: Allows use of /lurker (username)
+        default: false
+    lurker.cmd.uptime:
+        description: Allows use of /lurker server
         default: false

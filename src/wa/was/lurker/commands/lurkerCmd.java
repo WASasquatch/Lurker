@@ -52,7 +52,7 @@ public class lurkerCmd implements CommandExecutor {
 					return true;
 				}
 			// Checking others play time
-			} else if ( sender.hasPermission("lurker.cmd.others") || sender.isOp() ) {
+			} else if ( sender.hasPermission("lurker.cmd.others") || sender.isOp() && ! ( args[0].toString().toLowerCase().contentEquals("server") ) ) {
 				Player p = connectionTracker.server.getPlayer(args[0].toString());
 				// Check if valid player...
 				if ( p != null && connectionTracker.lurkers.containsKey(p.getUniqueId()) ) {
@@ -73,21 +73,57 @@ public class lurkerCmd implements CommandExecutor {
 					// Send message to player
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));
 				}
+			} else if ( sender.hasPermission("lurker.cmd.uptime") || sender.isOp() && args[0].toString().toLowerCase().contentEquals("server") ) {
+				// Asking for server uptime
+				// Get the startup time of the server
+				int to = ( (int) System.currentTimeMillis() - connectionTracker.startupTime );
+				// Format Message
+				String msg = connectionTracker.config.getString("server-time-format");
+				String fmsg = formatString(msg, formatTime(to), null);
+
+				// Send message to player
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));	
+				// Return command as TRUE
+				return true;
 			} else {
 				// User has no permission for this command. 
 				String msg = connectionTracker.config.getString("no-permission-format");
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
 			}
 		} else if ( sender instanceof ConsoleCommandSender ) {
-			// Get the startup time of the server
-			int to = ( (int) System.currentTimeMillis() - connectionTracker.startupTime );
-			// Format Message
-			String msg = connectionTracker.config.getString("server-time-format");
-			String fmsg = formatString(msg, formatTime(to), null);
-
-			// Send message to player
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));	
-			// Return command as TRUE
+			if ( args.length == 0 ) {
+				// Get the startup time of the server
+				int to = ( (int) System.currentTimeMillis() - connectionTracker.startupTime );
+				// Format Message
+				String msg = connectionTracker.config.getString("server-time-format");
+				String fmsg = formatString(msg, formatTime(to), null);
+	
+				// Send message to player
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));	
+				// Return command as TRUE
+			} else {
+				// Server casting on player
+				Player p = connectionTracker.server.getPlayer(args[0].toString());
+				// Check if valid player...
+				if ( p != null && connectionTracker.lurkers.containsKey(p.getUniqueId()) ) {
+					// Get the login time of player
+					int to = ( (int) System.currentTimeMillis() - connectionTracker.lurkers.get(p.getUniqueId()) );
+					// Format Message
+					String msg = connectionTracker.config.getString("player-time-format");
+					String fmsg = formatString(msg, formatTime(to), args[0].toString());
+					// Send message to player
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));	
+					// Return command as TRUE
+					return true;
+				} else {
+					// Target is offline
+					// Format Message
+					String msg = connectionTracker.config.getString("target-offline-format");
+					String fmsg = formatString(msg, null, args[0]);
+					// Send message to player
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', fmsg));
+				}
+			}
 			return true;
 		}
 		// Return command as FALSE
